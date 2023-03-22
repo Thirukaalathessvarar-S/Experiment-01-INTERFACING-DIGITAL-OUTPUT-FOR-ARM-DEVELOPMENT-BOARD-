@@ -8,7 +8,8 @@ The full form of an ARM is an advanced reduced instruction set computer (RISC) m
 
 What is an ARM7 Processor?
 ARM7 processor is commonly used in embedded system applications. Also, it is a balance among classic as well as new-Cortex sequence. This processor is tremendous in finding the resources existing on the internet with excellence documentation offered by NXP Semiconductors. It suits completely for an apprentice to obtain in detail hardware & software design implementation.
-LPC2148 Microcontroller
+LPC2148 Microcontroller![led](https://user-images.githubusercontent.com/121166390/226793085-2b0b93b0-792b-4672-b7ac-74137f55b7be.jpg)
+
  The LPC2148 microcontroller is designed by Philips (NXP Semiconductor) with several in-built features & peripherals. Due to these reasons, it will make more reliable as well as the efficient option for an application developer. LPC2148 is a 16-bit or 32-bit microcontroller based on ARM7 family.
 Features of LPC2148
 The main features of LPC2148 include the following.
@@ -82,45 +83,45 @@ Reg.no : 212222230161
 ```
 #include "main.h"
 
+
+UART_HandleTypeDef huart2;
+
+
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-void led();
+static void MX_USART2_UART_Init(void);
 
-  */
+void led();
 int main(void)
 {
- 
-  HAL_Init();
-
- 
+  
   SystemClock_Config();
 
+  
   MX_GPIO_Init();
+  MX_USART2_UART_Init();
   
   while (1)
   {
 	  led();
-   
   }
+  
 }
 void led()
 {
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5,GPIO_PIN_SET);
-	HAL_Delay(100);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+	HAL_Delay(2000);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-	HAL_Delay(100);
+	HAL_Delay(2000);
 }
-
 
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  
   HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
   
-  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSIDiv = RCC_HSI_DIV1;
@@ -130,7 +131,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  */
+  
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
@@ -143,16 +144,50 @@ void SystemClock_Config(void)
   }
 }
 
-/
+
+static void MX_USART2_UART_Init(void)
+{
+
+  huart2.Instance = USART2;
+  huart2.Init.BaudRate = 115200;
+  huart2.Init.WordLength = UART_WORDLENGTH_8B;
+  huart2.Init.StopBits = UART_STOPBITS_1;
+  huart2.Init.Parity = UART_PARITY_NONE;
+  huart2.Init.Mode = UART_MODE_TX_RX;
+  huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart2.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart2.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart2.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  huart2.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(&huart2, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(&huart2, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(&huart2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  
+}
+
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 
- 
   GPIO_InitStruct.Pin = GPIO_PIN_5;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -160,11 +195,8 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 }
-
-
 void Error_Handler(void)
 {
-  
   __disable_irq();
   while (1)
   {
@@ -178,16 +210,13 @@ void assert_failed(uint8_t *file, uint32_t line)
 {
   
 }
-#endif
+  
+
 ```
 
 ## Output  :
+![led](https://user-images.githubusercontent.com/121166390/226793277-23421aa3-6067-4fd2-8fd6-1895a412c4d7.jpg)
 
-## LED IS ON
-![image](![PM exp1 led on](https://user-images.githubusercontent.com/121166390/226530352-72dbfc36-fbbe-4170-9d13-527891313e92.jpg)
-
-## LED IS OFF
-![image](![led off](https://user-images.githubusercontent.com/121166390/226532188-835d228a-8a34-4969-bca6-0b57349a339c.jpg)
 
 
 ## Result :
