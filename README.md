@@ -8,7 +8,7 @@ The full form of an ARM is an advanced reduced instruction set computer (RISC) m
 
 What is an ARM7 Processor?
 ARM7 processor is commonly used in embedded system applications. Also, it is a balance among classic as well as new-Cortex sequence. This processor is tremendous in finding the resources existing on the internet with excellence documentation offered by NXP Semiconductors. It suits completely for an apprentice to obtain in detail hardware & software design implementation.
-LPC2148 Microcontroller![led](https://user-images.githubusercontent.com/121166390/226793085-2b0b93b0-792b-4672-b7ac-74137f55b7be.jpg)
+LPC2148 Microcontroller
 
  The LPC2148 microcontroller is designed by Philips (NXP Semiconductor) with several in-built features & peripherals. Due to these reasons, it will make more reliable as well as the efficient option for an application developer. LPC2148 is a 16-bit or 32-bit microcontroller based on ARM7 family.
 Features of LPC2148
